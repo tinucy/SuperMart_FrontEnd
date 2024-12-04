@@ -1,0 +1,114 @@
+.order-history-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  ion-list {
+    background: transparent;
+    padding: 0;
+
+    ion-item {
+      --background: #ffffff;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 12px;
+      --padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      &::part(native) {
+        border-radius: 8px;
+      }
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+
+        h2 {
+          margin: 0;
+          font-size: 1.1em;
+          font-weight: 600;
+          color: #2c3e50;
+        }
+
+        ion-badge {
+          font-weight: 500;
+          padding: 4px 8px;
+          border-radius: 4px;
+        }
+      }
+
+      .order-info {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 8px;
+
+        p {
+          margin: 0;
+          font-size: 0.9em;
+          color: #666;
+
+          &.total {
+            font-weight: 600;
+            color: #556b2f;
+          }
+        }
+      }
+
+      .delivery-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85em;
+        color: #666;
+
+        ion-icon {
+          color: #556b2f;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #666;
+
+    ion-spinner {
+      margin-bottom: 16px;
+    }
+  }
+
+  .no-orders {
+    text-align: center;
+    padding: 40px 20px;
+
+    ion-icon {
+      font-size: 64px;
+      color: #556b2f;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin: 0 0 8px;
+    }
+
+    p {
+      color: #666;
+      margin: 0 0 20px;
+    }
+
+    ion-button {
+      --color: #556b2f;
+      font-weight: 500;
+    }
+  }
+}

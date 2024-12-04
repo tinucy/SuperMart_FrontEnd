@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-title>Shopping Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cart-container">
+    <div *ngIf="cart.items.length === 0" class="empty-cart">
+      <ion-icon name="cart-outline"></ion-icon>
+      <h2>Your cart is empty</h2>
+      <p>Add items to your cart to proceed with checkout</p>
+      <ion-button routerLink="/shop" fill="clear">
+        Continue Shopping
+      </ion-button>
+    </div>
+
+    <div *ngIf="cart.items.length > 0" class="cart-content">
+      <div class="cart-items">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of cart.items">
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <img [src]="getProduct(item.productId)?.image" [alt]="getProduct(item.productId)?.name">
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{ getProduct(item.productId)?.name }}</h2>
+                <p>{{ getProduct(item.productId)?.description }}</p>
+                <div class="price-info">
+                  <span class="original-price" *ngIf="item.originalPrice">
+                    ${{ item.originalPrice.toFixed(2) }}
+                  </span>
+                  <span class="current-price">${{ item.price.toFixed(2) }}</span>
+                </div>
+              </ion-label>
+              <ion-input type="number" [value]="item.quantity" (ionChange)="updateQuantity(item, $event)" min="1"
+                class="quantity-input"></ion-input>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="removeItem(item.productId)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="coupon-section">
+          <ion-item>
+            <ion-label position="stacked">Promo Code</ion-label>
+            <ion-input [(ngModel)]="couponCode" placeholder="Enter promo code"
+              [disabled]="!!cart.summary.couponCode"></ion-input>
+          </ion-item>
+          <ion-button *ngIf="!cart.summary.couponCode" expand="block" fill="clear" (click)="applyCoupon()">
+            Apply
+          </ion-button>
+          <ion-button *ngIf="cart.summary.couponCode" expand="block" fill="clear" color="danger"
+            (click)="removeCoupon()">
+            Remove
+          </ion-button>
+        </div>
+
+        <div class="summary-item">
+          <span>Subtotal</span>
+          <span>${{ cart.summary.subtotal.toFixed(2) }}</span>
+        </div>
+
+        <div class="summary-item" *ngIf="cart.summary.discount > 0">
+          <span>Item Discount</span>
+          <span>-${{ cart.summary.discount.toFixed(2) }}</span>
+        </div>
+
+        <div class="summary-item" *ngIf="cart.summary.couponDiscount > 0">
+          <span>Promo Discount</span>
+          <span>-${{ cart.summary.couponDiscount.toFixed(2) }}</span>
+        </div>
+
+        <div class="summary-item">
+          <span>Shipping</span>
+          <span *ngIf="cart.summary.shipping > 0">${{ cart.summary.shipping.toFixed(2) }}</span>
+          <span *ngIf="cart.summary.shipping === 0" class="free-shipping">FREE</span>
+        </div>
+        <div class="summary-item">
+          <span>Tax</span>
+          <span>${{ cart.summary.tax.toFixed(2) }}</span>
+        </div>
+        <div class="summary-item total">
+          <span>Total</span>
+          <span>${{ cart.summary.total.toFixed(2) }}</span>
+        </div>
+
+        <div class="cart-actions">
+          <ion-button expand="block" color="success" (click)="proceedToCheckout()">
+            Proceed to Checkout
+          </ion-button>
+          <ion-button expand="block" fill="clear" color="medium" (click)="clearCart()">
+            Clear Cart
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

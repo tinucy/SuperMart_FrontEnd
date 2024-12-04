@@ -1,0 +1,241 @@
+.checkout-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-in;
+
+  .form-section {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h3 {
+      color: #2c3e50;
+      margin: 0 0 24px;
+      font-size: 1.2em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      ion-icon {
+        color: #556b2f;
+        font-size: 1.2em;
+      }
+    }
+
+    ion-item {
+      --padding-start: 0;
+      --background: transparent;
+      --border-color: #ddd;
+      margin-bottom: 16px;
+      --highlight-color: #556b2f;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      ion-label {
+        color: #666;
+        font-weight: 500;
+      }
+
+      ion-input,
+      ion-select {
+        --padding-start: 0;
+        font-size: 1em;
+        --placeholder-color: #999;
+      }
+    }
+
+    .location-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 0 8px;
+
+      ion-button {
+        flex: 1;
+        --color: #556b2f;
+        font-size: 0.9em;
+        height: 36px;
+
+        ion-icon {
+          margin-right: 4px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .payment-methods {
+    ion-segment {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+
+      ion-segment-button {
+        --background: transparent;
+        --background-checked: #ffffff;
+        --color: #666;
+        --color-checked: #556b2f;
+        --indicator-color: transparent;
+        min-height: 44px;
+        border-radius: 8px;
+        text-transform: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &::part(indicator) {
+          display: none;
+        }
+
+        &.segment-button-checked {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        ion-icon {
+          font-size: 20px;
+          margin-bottom: 4px;
+        }
+
+        ion-label {
+          font-size: 0.9em;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+
+  .card-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-actions {
+    margin-top: 32px;
+    display: grid;
+    gap: 12px;
+
+    ion-button {
+      margin: 0;
+      height: 48px;
+      --border-radius: 12px;
+      font-weight: 500;
+
+      &[type="submit"] {
+        --background: #556b2f;
+        --background-hover: #4c6029;
+        --box-shadow: 0 4px 12px rgba(85, 107, 47, 0.2);
+
+        &:hover {
+          --box-shadow: 0 6px 16px rgba(85, 107, 47, 0.3);
+        }
+      }
+
+      &[fill="clear"] {
+        --color: #666;
+        height: 44px;
+      }
+    }
+  }
+
+  // Progress steps
+  .checkout-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 16px;
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 1;
+
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        width: 100%;
+        height: 2px;
+        background: #ddd;
+        z-index: 0;
+      }
+
+      .step-number {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9em;
+        color: #666;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-label {
+        font-size: 0.85em;
+        color: #666;
+        text-align: center;
+      }
+
+      &.active {
+        .step-number {
+          background: #556b2f;
+          border-color: #556b2f;
+          color: white;
+        }
+
+        .step-label {
+          color: #556b2f;
+          font-weight: 500;
+        }
+      }
+
+      &.completed {
+        .step-number {
+          background: #556b2f;
+          border-color: #556b2f;
+          color: white;
+        }
+
+        &:not(:last-child)::after {
+          background: #556b2f;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

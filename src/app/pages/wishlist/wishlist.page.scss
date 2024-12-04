@@ -1,0 +1,69 @@
+.wishlist-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .empty-wishlist {
+    text-align: center;
+    padding: 40px 20px;
+
+    ion-icon {
+      font-size: 64px;
+      color: #556b2f;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin: 20px 0 10px;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    ion-button {
+      --color: #556b2f;
+    }
+  }
+
+  ion-list {
+    background: transparent;
+
+    ion-item {
+      --padding-start: 0;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      --background: #ffffff;
+
+      ion-thumbnail {
+        --size: 80px;
+        margin: 10px;
+
+        img {
+          border-radius: 4px;
+          object-fit: cover;
+        }
+      }
+
+      ion-label {
+        h2 {
+          font-size: 1.1em;
+          color: #2c3e50;
+          margin-bottom: 4px;
+        }
+
+        p {
+          color: #666;
+          font-size: 0.9em;
+
+          &.price {
+            color: #556b2f;
+            font-weight: bold;
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+  }
+}

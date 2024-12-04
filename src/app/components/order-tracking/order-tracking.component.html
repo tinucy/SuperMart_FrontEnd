@@ -1,0 +1,50 @@
+<div class="order-tracking">
+  <div class="tracking-header">
+    <h2>Order #{{ order.id }}</h2>
+    <div class="estimated-delivery" *ngIf="order.delivery?.estimatedDate">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <span>Estimated Delivery: {{ order.delivery.estimatedDate | date:'medium' }}</span>
+    </div>
+  </div>
+
+  <div class="tracking-timeline">
+    <div class="timeline-step" *ngFor="let step of statusSteps; let i = index" [class.completed]="isStepCompleted(step)"
+      [class.active]="isStepActive(step)">
+      <div class="step-icon">
+        <ion-icon [name]="orderService.getOrderStatusInfo(step).icon"></ion-icon>
+      </div>
+      <div class="step-content">
+        <div class="step-label">{{ orderService.getOrderStatusInfo(step).label }}</div>
+        <div class="delivery-estimate" *ngIf="step === 'OUT_FOR_DELIVERY' && isStepActive(step)">
+          <div class="time-window" *ngIf="order.delivery.timeWindow">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Expected: {{ orderService.getDeliveryTimeWindow(order) }}</span>
+          </div>
+          <div class="remaining-time" [class.late]="orderService.getDeliveryStatus(order).isLate">
+            <ion-icon [name]="orderService.getDeliveryStatus(order).isLate ? 'alert-circle' : 'bicycle'">
+            </ion-icon>
+            <span>{{ orderService.getDeliveryStatus(order).label }}</span>
+          </div>
+        </div>
+        <div class="step-time" *ngIf="isStepCompleted(step)">
+          {{ order.statusHistory[i]?.timestamp | date:'short' }}
+        </div>
+        <div class="step-description" *ngIf="isStepCompleted(step)">
+          {{ order.statusHistory[i]?.description }}
+        </div>
+        <div class="delivery-notes" *ngIf="step === 'OUT_FOR_DELIVERY' && order.delivery.notes">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>{{ order.delivery.notes }}</span>
+        </div>
+      </div>
+      <div class="step-line" *ngIf="i < statusSteps.length - 1"></div>
+    </div>
+  </div>
+
+  <div class="tracking-details" *ngIf="order.trackingNumber">
+    <div class="tracking-number">
+      <ion-icon name="barcode-outline"></ion-icon>
+      <span>Tracking Number: {{ order.trackingNumber }}</span>
+    </div>
+  </div>
+</div>

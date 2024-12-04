@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/shop"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="order-history-container">
+    <ng-container *ngIf="!isLoading; else loading">
+      <ng-container *ngIf="orders.length > 0; else noOrders">
+        <ion-list>
+          <ion-item *ngFor="let order of orders" button detail="true" (click)="viewOrderDetails(order.id)">
+            <ion-label>
+              <div class="order-header">
+                <h2>Order #{{ order.id }}</h2>
+                <ion-badge [color]="orderService.getOrderStatusInfo(order.status).color">
+                  {{ orderService.getOrderStatusInfo(order.status).label }}
+                </ion-badge>
+              </div>
+              <div class="order-info">
+                <p class="date">{{ order.createdAt | date:'medium' }}</p>
+                <p class="items">{{ order.items.length }} items</p>
+                <p class="total">${{ getOrderTotal(order) }}</p>
+              </div>
+              <div class="delivery-info" *ngIf="order.delivery?.estimatedDate">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>Estimated Delivery: {{ order.delivery.estimatedDate | date:'mediumDate' }}</span>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="loading-container">
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+        <p>Loading orders...</p>
+      </div>
+    </ng-template>
+
+    <ng-template #noOrders>
+      <div class="no-orders">
+        <ion-icon name="bag-outline"></ion-icon>
+        <h2>No Orders Yet</h2>
+        <p>Start shopping to see your orders here</p>
+        <ion-button routerLink="/shop" fill="clear">
+          Browse Products
+        </ion-button>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

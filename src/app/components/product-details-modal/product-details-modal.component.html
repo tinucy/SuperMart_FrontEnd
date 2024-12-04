@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-title>{{ product.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="modal-content">
+    <img [src]="product.image" [alt]="product.name" />
+
+    <div class="product-info">
+      <div class="brand">{{ product.details.brand }}</div>
+      <h2>{{ product.name }}</h2>
+      <div class="price-section">
+        <span class="original-price" *ngIf="product.deal">${{ product.originalPrice?.toFixed(2) }}</span>
+        <span class="current-price">${{ product.price.toFixed(2) }}</span>
+      </div>
+
+      <p class="description">{{ product.description }}</p>
+
+      <div class="ratings-overview">
+        <div class="rating-header">
+          <div class="average-rating">
+            <span class="rating-number">{{ product.ratings.average.toFixed(1) }}</span>
+            <div class="stars">
+              <ion-icon *ngFor="let star of [1,2,3,4,5]"
+                [name]="star <= product.ratings.average ? 'star' : 'star-outline'"></ion-icon>
+            </div>
+            <span class="total-reviews">{{ product.ratings.count }} reviews</span>
+          </div>
+        </div>
+
+        <div class="rating-bars">
+          <div class="rating-bar" *ngFor="let n of [5,4,3,2,1]">
+            <span class="star-count">{{ n }}</span>
+            <div class="bar-container">
+              <div class="bar">
+                <div class="fill"
+                  [style.width.%]="calculateRatingWidth(n, product.ratings.distribution, product.ratings.count)">
+                </div>
+              </div>
+            </div>
+            <span class="count">{{ getRatingCount(n) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-section" *ngIf="product.reviews?.length">
+        <h3>Customer Reviews</h3>
+        <div class="review-card" *ngFor="let review of product.reviews">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-name">{{ review.userName }}</span>
+              <div class="review-stars">
+                <ion-icon *ngFor="let star of [1,2,3,4,5]"
+                  [name]="star <= review.rating ? 'star' : 'star-outline'"></ion-icon>
+              </div>
+            </div>
+            <span class="review-date">{{ review.date | date:'mediumDate' }}</span>
+          </div>
+          <p class="review-comment">{{ review.comment }}</p>
+          <div class="review-footer">
+            <span class="verified-badge" *ngIf="review.verified">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              Verified Purchase
+            </span>
+            <span class="helpful-count" *ngIf="review.helpful">
+              {{ review.helpful }} found this helpful
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

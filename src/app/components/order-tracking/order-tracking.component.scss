@@ -1,0 +1,194 @@
+.order-tracking {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .tracking-header {
+    margin-bottom: 24px;
+
+    h2 {
+      color: #2c3e50;
+      margin: 0 0 8px;
+    }
+
+    .estimated-delivery {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 0.9em;
+
+      ion-icon {
+        color: #556b2f;
+      }
+    }
+  }
+
+  .tracking-timeline {
+    position: relative;
+    padding: 20px 0;
+
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      padding-bottom: 32px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+
+      .step-icon {
+        width: 40px;
+        height: 40px;
+        background: #f5f5f5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+        position: relative;
+        z-index: 1;
+
+        ion-icon {
+          font-size: 20px;
+          color: #999;
+        }
+      }
+
+      .step-content {
+        flex: 1;
+
+        .step-label {
+          font-weight: 500;
+          color: #666;
+          margin-bottom: 4px;
+        }
+
+        .step-time {
+          font-size: 0.85em;
+          color: #999;
+          margin-bottom: 4px;
+        }
+
+        .step-description {
+          font-size: 0.9em;
+          color: #666;
+        }
+
+        .delivery-estimate {
+          background: #f8f9fa;
+          border-radius: 8px;
+          padding: 12px;
+          margin: 8px 0;
+
+          .time-window {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #556b2f;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+
+            ion-icon {
+              font-size: 16px;
+            }
+          }
+
+          .remaining-time {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            color: #556b2f;
+
+            &.late {
+              color: #dc3545;
+            }
+
+            ion-icon {
+              font-size: 18px;
+            }
+          }
+        }
+
+        .delivery-notes {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 8px;
+          font-size: 0.9em;
+          color: #666;
+          font-style: italic;
+
+          ion-icon {
+            color: #556b2f;
+            font-size: 16px;
+          }
+        }
+      }
+
+      .step-line {
+        position: absolute;
+        left: 20px;
+        top: 40px;
+        bottom: 0;
+        width: 2px;
+        background: #eee;
+      }
+
+      &.completed {
+        .step-icon {
+          background: #556b2f;
+
+          ion-icon {
+            color: white;
+          }
+        }
+
+        .step-line {
+          background: #556b2f;
+        }
+
+        .step-label {
+          color: #2c3e50;
+        }
+      }
+
+      &.active {
+        .step-icon {
+          background: #556b2f;
+          box-shadow: 0 0 0 4px rgba(85, 107, 47, 0.2);
+
+          ion-icon {
+            color: white;
+          }
+        }
+
+        .step-label {
+          color: #556b2f;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .tracking-details {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+
+    .tracking-number {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 0.9em;
+
+      ion-icon {
+        color: #556b2f;
+      }
+    }
+  }
+}

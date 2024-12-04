@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-img src="assets/logo.svg" class="logo"></ion-img>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
+        Email is required
+      </div>
+      <div class="error-message" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']">
+        Please enter a valid email
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+        Password is required
+      </div>
+      <div class="error-message"
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']">
+        Password must be at least 6 characters
+      </div>
+
+      <div class="forgot-password">
+        <ion-button fill="clear" size="small" (click)="forgotPassword()">
+          Forgot Password?
+        </ion-button>
+      </div>
+
+      <ion-item lines="none">
+        <ion-checkbox formControlName="rememberMe" slot="start"></ion-checkbox>
+        <ion-label>Remember me</ion-label>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" [disabled]="!loginForm.valid" class="ion-margin-top">
+        Login
+      </ion-button>
+    </form>
+
+    <div class="social-login">
+      <div class="divider">
+        <span>Or continue with</span>
+      </div>
+
+      <div class="social-buttons">
+        <ion-button class="google-btn" (click)="loginWithGoogle()">
+          <ion-img src="assets/google-logo.svg" alt="Google"></ion-img>
+          Google
+        </ion-button>
+
+        <ion-button class="facebook-btn" (click)="loginWithFacebook()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+      </div>
+    </div>
+
+    <ion-button expand="block" fill="clear" routerLink="/register">
+      Don't have an account? Register
+    </ion-button>
+  </div>
+</ion-content>

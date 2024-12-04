@@ -1,0 +1,26 @@
+.unauthorized-container {
+  max-width: 400px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+
+  .warning-icon {
+    font-size: 64px;
+    color: #c94242;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: #c94242;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  ion-button {
+    --background: #556b2f;
+  }
+}

@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-title>Checkout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="checkout-container">
+    <div class="checkout-steps">
+      <div class="step completed">
+        <div class="step-number">1</div>
+        <div class="step-label">Cart</div>
+      </div>
+      <div class="step active">
+        <div class="step-number">2</div>
+        <div class="step-label">Checkout</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-label">Confirmation</div>
+      </div>
+    </div>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="submitOrder()">
+      <div class="form-section">
+        <h3>
+          <ion-icon name="person-outline"></ion-icon>
+          Contact Information
+        </h3>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input type="tel" formControlName="phone"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-section" formGroupName="shipping">
+        <h3>
+          <ion-icon name="location-outline"></ion-icon>
+          Shipping Address
+        </h3>
+        <div class="location-actions">
+          <ion-button fill="clear" (click)="useCurrentLocation()">
+            <ion-icon slot="start" name="locate-outline"></ion-icon>
+            Use My Location
+          </ion-button>
+          <ion-button fill="clear" (click)="showSavedAddresses()">
+            <ion-icon slot="start" name="bookmark-outline"></ion-icon>
+            Saved Addresses
+          </ion-button>
+        </div>
+        <ion-item>
+          <ion-label position="stacked">Street</ion-label>
+          <ion-input formControlName="street"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input formControlName="city"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">State</ion-label>
+          <ion-input formControlName="state"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">ZIP Code</ion-label>
+          <ion-input formControlName="zipCode"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Country</ion-label>
+          <ion-input formControlName="country"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-section">
+        <ion-item>
+          <ion-checkbox [(ngModel)]="sameAsShipping" [ngModelOptions]="{standalone: true}"
+            (ionChange)="onSameAsShippingChange()">
+          </ion-checkbox>
+          <ion-label>Billing address same as shipping</ion-label>
+        </ion-item>
+      </div>
+
+      <div class="form-section" formGroupName="billing" *ngIf="!sameAsShipping">
+        <h3>Billing Address</h3>
+        <ion-item>
+          <ion-label position="stacked">Street</ion-label>
+          <ion-input formControlName="street"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">City</ion-label>
+          <ion-input formControlName="city"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">State</ion-label>
+          <ion-input formControlName="state"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">ZIP Code</ion-label>
+          <ion-input formControlName="zipCode"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Country</ion-label>
+          <ion-input formControlName="country"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-section">
+        <h3>
+          <ion-icon name="card-outline"></ion-icon>
+          Payment Method
+        </h3>
+        <div class="payment-methods">
+          <ion-segment [(ngModel)]="selectedPaymentMethod" [ngModelOptions]="{standalone: true}"
+            (ionChange)="onPaymentMethodChange($event)">
+            <ion-segment-button value="CREDIT_CARD">
+              <ion-label>Credit Card</ion-label>
+              <ion-icon name="card"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="PAYPAL">
+              <ion-label>PayPal</ion-label>
+              <ion-icon name="logo-paypal"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="GOOGLE_PAY">
+              <ion-label>Google Pay</ion-label>
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button value="APPLE_PAY">
+              <ion-label>Apple Pay</ion-label>
+              <ion-icon name="logo-apple"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+      </div>
+
+      <div class="form-section" formGroupName="payment" *ngIf="selectedPaymentMethod === 'CREDIT_CARD'">
+        <h3>Card Details</h3>
+        <ion-item>
+          <ion-label position="stacked">Card Number</ion-label>
+          <ion-input formControlName="cardNumber" (input)="formatCardNumber($event)" maxlength="19"></ion-input>
+        </ion-item>
+        <div class="card-details">
+          <ion-item>
+            <ion-label position="stacked">Expiry Month</ion-label>
+            <ion-select formControlName="expiryMonth">
+              <ion-select-option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]"
+                [value]="month.toString().padStart(2, '0')">
+                {{ month.toString().padStart(2, '0') }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Expiry Year</ion-label>
+            <ion-select formControlName="expiryYear">
+              <ion-select-option *ngFor="let year of [2024,2025,2026,2027,2028]" [value]="year.toString()">
+                {{ year }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">CVV</ion-label>
+            <ion-input type="password" formControlName="cvv" maxlength="4"></ion-input>
+          </ion-item>
+        </div>
+        <ion-item>
+          <ion-label position="stacked">Cardholder Name</ion-label>
+          <ion-input formControlName="name"></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="form-actions">
+        <ion-button expand="block" type="submit" [disabled]="checkoutForm.invalid">
+          Place Order
+        </ion-button>
+        <ion-button expand="block" fill="clear" routerLink="/cart">
+          Back to Cart
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

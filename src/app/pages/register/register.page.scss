@@ -1,0 +1,117 @@
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .logo {
+    width: 180px;
+    margin: 20px auto 40px;
+    display: block;
+    animation: fadeIn 1s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .error-message {
+    color: #c94242;
+    font-size: 0.8em;
+    margin: 5px 0 0 16px;
+  }
+
+  ion-item {
+    margin-bottom: 10px;
+    --background: transparent;
+    --highlight-color: #556b2f;
+    --highlight-color-focused: #556b2f;
+    --highlight-color-valid: #556b2f;
+    --highlight-color-invalid: #c94242;
+  }
+
+  ion-button[type="submit"] {
+    --background: #556b2f;
+    --background-hover: #4c6029;
+    --background-activated: #4c6029;
+    --background-focused: #4c6029;
+  }
+
+  .social-login {
+    margin-top: 30px;
+
+    .divider {
+      text-align: center;
+      position: relative;
+      margin: 20px 0;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: calc(50% - 50px);
+        height: 1px;
+        background-color: #8b9b6e;
+        z-index: 1;
+      }
+
+      &::before {
+        left: 0;
+      }
+
+      &::after {
+        right: 0;
+      }
+
+      span {
+        position: relative;
+        z-index: 2;
+        background: var(--ion-background-color);
+        padding: 0 10px;
+        color: #6b7b4e;
+        font-size: 14px;
+      }
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+
+      ion-button {
+        --padding-start: 15px;
+        --padding-end: 15px;
+
+        ion-img {
+          width: 20px;
+          margin-right: 8px;
+        }
+
+        ion-icon {
+          font-size: 20px;
+          margin-right: 8px;
+        }
+      }
+
+      .google-btn {
+        --background: #ffffff;
+        --color: #000000;
+        --border-color: #dadce0;
+        --border-style: solid;
+        --border-width: 1px;
+      }
+
+      .facebook-btn {
+        --background: #1877f2;
+        --color: #ffffff;
+      }
+    }
+  }
+}

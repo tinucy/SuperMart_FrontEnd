@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar style="--background: #556B2F; --color: white;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login" style="--color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="register-container">
+    <ion-img src="assets/logo.svg" class="logo"></ion-img>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input type="text" formControlName="firstName"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.errors?.['required']">
+        First name is required
+      </div>
+      <div class="error-message"
+        *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.errors?.['minlength']">
+        First name must be at least 2 characters
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input type="text" formControlName="lastName"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors?.['required']">
+        Last name is required
+      </div>
+      <div class="error-message"
+        *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors?.['minlength']">
+        Last name must be at least 2 characters
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">
+        Email is required
+      </div>
+      <div class="error-message"
+        *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']">
+        Please enter a valid email
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">
+        Password is required
+      </div>
+      <div class="error-message"
+        *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['minlength']">
+        Password must be at least 6 characters
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+      <div class="error-message"
+        *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.errors?.['required']">
+        Please confirm your password
+      </div>
+      <div class="error-message"
+        *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched">
+        Passwords do not match
+      </div>
+
+      <ion-button expand="block" type="submit" [disabled]="!registerForm.valid" class="ion-margin-top">
+        Register
+      </ion-button>
+    </form>
+
+    <div class="social-login">
+      <div class="divider">
+        <span>Or register with</span>
+      </div>
+
+      <div class="social-buttons">
+        <ion-button class="google-btn" (click)="registerWithGoogle()">
+          <ion-img src="assets/google-logo.svg" alt="Google"></ion-img>
+          Google
+        </ion-button>
+
+        <ion-button class="facebook-btn" (click)="registerWithFacebook()">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+      </div>
+    </div>
+
+    <ion-button expand="block" fill="clear" routerLink="/login">
+      Already have an account? Login
+    </ion-button>
+  </div>
+</ion-content>
